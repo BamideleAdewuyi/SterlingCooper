@@ -34,7 +34,18 @@ CREATE TABLE IF NOT EXISTS campaign_type (
     CONSTRAINT fk_campaign FOREIGN KEY (campaign_id) REFERENCES campaign(id) ON DELETE CASCADE,
     CONSTRAINT fk_type_of_client FOREIGN KEY (type_of_client_id) REFERENCES type_of_client(id) ON DELETE CASCADE
 );
-    
+
+INSERT INTO type_of_client (type)
+VALUES
+    ('Corporate'),
+    ('Charity'),
+    ('Pharmaceutical'),
+    ('Automobile'),
+    ('Airline'),
+    ('Food and Drink'),
+    ('Retail'),
+    ('Cosmetic'),
+    ('Other')
 `;
 
 async function main() {
