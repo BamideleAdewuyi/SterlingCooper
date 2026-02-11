@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS type_of_client (
     type VARCHAR ( 255 )
 );
 
-CREATE TABLE IF NOT EXISTS assignments (
+CREATE TABLE IF NOT EXISTS assignment (
     executive_id INTEGER NOT NULL,
     campaign_id INTEGER NOT NULL,
     PRIMARY KEY (executive_id, campaign_id),
