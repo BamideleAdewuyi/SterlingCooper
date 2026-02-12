@@ -16,5 +16,16 @@
         <button type="submit">Add</button>
     </form>
     <h2><%= title %></h2>
+    <div class="executives">
+        <% if (executives.length > 0) { %> 
+                <div class="executive">
+                    <% for (const executive of executives) { %>
+                        <h3>Name: <%= executive.first_name %> <%= executive.last_name %> </h3>
+                    <% } %>
+                    </div>
+        <% } else { %>
+            <p>No executives in system</p>
+        <% } %>
+    </div>
 </body>
 </html>
