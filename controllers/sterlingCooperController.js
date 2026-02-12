@@ -40,7 +40,7 @@ async function deleteCampaign(req, res) {
     res.redirect("campaigns");
 };
 
-async function getAllTypes(req, res) {
+async function allTypesGet(req, res) {
     const types = await db.getAllTypesOfClient();
     res.render("types", {
         title: "All Types of Campaign",
@@ -55,5 +55,5 @@ module.exports = {
     campaignsGet,
     newCampaignPost,
     deleteCampaign,
-    getAllTypes,
+    allTypesGet,
 };
