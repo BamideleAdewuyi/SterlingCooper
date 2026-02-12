@@ -19,9 +19,9 @@ async function newExecutivePost(req, res) {
 };
 
 async function deleteExecutive(req, res) {
-    const { id } = req.body;
-    await db.deleteExecutive({ id });
-    res.redirect("executives");
+    const id = req.params.id;
+    await db.deleteExecutive(id);
+    res.redirect("/executives");
 };
 
 async function campaignsGet(req, res) {
