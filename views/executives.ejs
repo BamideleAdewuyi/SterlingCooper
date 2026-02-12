@@ -20,9 +20,12 @@
         <% if (executives.length > 0) { %> 
                 <div class="executive">
                     <% for (const executive of executives) { %>
-                        <h3>Name: <%= executive.first_name %> <%= executive.last_name %> </h3>
+                        <form action="/executive/<%= executive.id %>" method="POST">
+                            <h3>Name: <%= executive.first_name %> <%= executive.last_name %> </h3>
+                            <button type="submit" >Delete</button>
+                        </form>
                     <% } %>
-                    </div>
+                </div>
         <% } else { %>
             <p>No executives in system</p>
         <% } %>
