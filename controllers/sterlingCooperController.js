@@ -1,5 +1,9 @@
 const db = require("../db/queries");
 
+function homeGet(req, res) {
+    res.render("index");
+};
+
 async function executivesGet(req, res) {
   const executives = await db.getAllExecutives();
   res.render("executives", {
@@ -49,6 +53,7 @@ async function allTypesGet(req, res) {
 };
 
 module.exports = {
+    homeGet,
     executivesGet,
     newExecutivePost,
     deleteExecutive,
