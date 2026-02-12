@@ -5,7 +5,7 @@ async function getAllExecutives() {
     return rows;
 }
 
-async function postNewExecutive(firstName, lastName) {
+async function postNewExecutive({firstName, lastName}) {
     await pool.query("INSERT INTO executive (first_name, last_name) VALUES ($1, $2)", [firstName, lastName]);
 }
 
@@ -18,7 +18,7 @@ async function getAllCampaigns() {
     return rows;
 }
 
-async function postNewCampaign(brand) {
+async function postNewCampaign({brand}) {
     await pool.query("INSERT INTO campaign (brand) VALUES $1", [brand]);
 }
 
