@@ -13,7 +13,7 @@ sterlingCooperRouter.post("/executives", sterlingCooperController.newExecutivePo
 sterlingCooperRouter.post("/campaigns", sterlingCooperController.newCampaignPost);
 
 // Delete
-sterlingCooperRouter.delete("/executive/:id", sterlingCooperController.deleteExecutive);
+sterlingCooperRouter.post("/executive/:id", sterlingCooperController.deleteExecutive);
 sterlingCooperRouter.delete("/campaigns/:id", sterlingCooperController.deleteCampaign);
 
 module.exports = sterlingCooperRouter;
