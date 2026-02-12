@@ -3,6 +3,7 @@ const sterlingCooperController = require("../controllers/sterlingCooperControlle
 const sterlingCooperRouter = Router();
 
 // Get
+sterlingCooperRouter.get("/", sterlingCooperController.homeGet);
 sterlingCooperRouter.get("/executives", sterlingCooperController.executivesGet);
 sterlingCooperRouter.get("/campaigns", sterlingCooperController.campaignsGet);
 sterlingCooperRouter.get("/types", sterlingCooperController.allTypesGet);
