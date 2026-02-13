@@ -19,7 +19,7 @@ async function getAllCampaigns() {
 }
 
 async function postNewCampaign({brand}) {
-    await pool.query("INSERT INTO campaign (brand) VALUES $1", [brand]);
+    await pool.query("INSERT INTO campaign (brand) VALUES ($1)", [brand]);
 }
 
 async function deleteCampaign(id) {
