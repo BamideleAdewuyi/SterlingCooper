@@ -39,9 +39,9 @@ async function newCampaignPost(req, res) {
 };
 
 async function deleteCampaign(req, res) {
-    const { id } = req.body;
-    await db.deleteCampaign({ id });
-    res.redirect("campaigns");
+    const id = req.params.id;
+    await db.deleteCampaign(id);
+    res.redirect("/campaigns");
 };
 
 async function allTypesGet(req, res) {
