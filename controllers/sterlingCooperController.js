@@ -6,9 +6,11 @@ function homeGet(req, res) {
 
 async function executivesGet(req, res) {
   const executives = await db.getAllExecutives();
+  const campaigns = await db.getAllCampaigns();
   res.render("executives", {
         title: "All Executives",
         executives: executives,
+        campaigns: campaigns,
   });
 };
 
