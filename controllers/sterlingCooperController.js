@@ -47,7 +47,7 @@ async function deleteCampaign(req, res) {
 async function allTypesGet(req, res) {
     const types = await db.getAllTypesOfClient();
     res.render("types", {
-        title: "All Types of Campaign",
+        title: "The kind of work we do",
         types: types,
     });
 };
