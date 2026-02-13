@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+</head>
+<body>
+    <%- include("partials/header.ejs") %>
+    <h1>Add new campaign</h1>
+    <form action="/campaigns" method="POST">
+        <label for="brand">Brand name:</label>
+        <input type="text" name="brand" id="brand">
+        <button type="submit">Add campaign</button>
+    </form>
+    <h2><%= title %></h2>
+    <div class="campaigns">
+        <% if (campaigns.length > 0) { %> 
+                <div class="campaign">
+                    <% for (const campaign of campaigns) { %>
+                        <form action="/campaign/<%= campaign.id %>" method="POST">
+                            <h3>Brand: <%= campaign.brand %> </h3>
+                            <button type="submit" >Delete</button>
+                        </form>
+                    <% } %>
+                </div>
+        <% } else { %>
+            <p>No campaigns in system</p>
+        <% } %>
+    </div>
+</body>
+</html>
