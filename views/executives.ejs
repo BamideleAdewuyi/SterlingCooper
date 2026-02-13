@@ -23,7 +23,21 @@
                         <form action="/executive/<%= executive.id %>" method="POST">
                             <h3>Name: <%= executive.first_name %> <%= executive.last_name %> </h3>
                             <button type="submit" >Delete</button>
+                            <button type="button" onclick="document.getElementById('campaignDialog').showModal()">Assign to Campaign</button>
                         </form>
+                        <dialog id="campaignDialog">
+                            <h4>Assign this executive to a campaign</h4>
+                            <form method="dialog">
+                                <label for="campaigns">Select campaign to assign</label>
+                                <select name="campaigns" id="campaigns">
+                                    <% for (const campaign of campaigns) { %>
+                                        <option value="[<%= campaign.id %>, <%= executive.id %>]"><%= campaign.brand %></option>
+                                    <% } %>
+                                </select>
+                                <button type="submit">Assign</button>
+                                <button type="button" onclick="document.getElementById('campaignDialog').close()">Close</button>
+                            </form>
+                        </dialog>
                     <% } %>
                 </div>
         <% } else { %>
