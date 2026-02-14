@@ -54,6 +54,10 @@ async function allTypesGet(req, res) {
     });
 };
 
+async function postAssignToCampaign(req, res) {
+
+};
+
 module.exports = {
     homeGet,
     executivesGet,
@@ -63,4 +67,5 @@ module.exports = {
     newCampaignPost,
     deleteCampaign,
     allTypesGet,
+    postAssignToCampaign,
 };
