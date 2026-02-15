@@ -7,6 +7,7 @@ sterlingCooperRouter.get("/", sterlingCooperController.homeGet);
 sterlingCooperRouter.get("/executives", sterlingCooperController.executivesGet);
 sterlingCooperRouter.get("/campaigns", sterlingCooperController.campaignsGet);
 sterlingCooperRouter.get("/types", sterlingCooperController.allTypesGet);
+sterlingCooperRouter.get("/executiveDetails/:id", sterlingCooperController.executiveDetailsGet);
 
 // Post
 sterlingCooperRouter.post("/executives", sterlingCooperController.newExecutivePost);
