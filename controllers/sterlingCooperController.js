@@ -63,7 +63,9 @@ async function postAssignToCampaign(req, res) {
 };
 
 async function executiveDetailsGet(req, res) {
+    res.render("executiveDetails", {
 
+    });
 };
 
 module.exports = {
