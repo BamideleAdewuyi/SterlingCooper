@@ -55,7 +55,11 @@ async function allTypesGet(req, res) {
 };
 
 async function postAssignToCampaign(req, res) {
-
+    if (req.params.executiveId) {
+        const executiveId = req.params.executiveId;
+        const campaignId = req.body.campaignId
+        db.assignToCampaignPost({executiveId, campaignId});
+    }
 };
 
 module.exports = {
