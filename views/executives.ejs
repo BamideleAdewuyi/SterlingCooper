@@ -27,14 +27,14 @@
                         </form>
                         <dialog id="campaignDialog">
                             <h4>Assign this executive to a campaign</h4>
-                            <form method="dialog">
+                            <form action="<%= executive.id %>" method="POST">
                                 <label for="campaigns">Select campaign to assign</label>
-                                <select name="campaigns" id="campaigns">
+                                <select name="campaignId" id="campaigns">
                                     <% for (const campaign of campaigns) { %>
-                                        <option value="[<%= campaign.id %>, <%= executive.id %>]"><%= campaign.brand %></option>
+                                        <option value="<%= campaign.id %>"><%= campaign.brand %></option>
                                     <% } %>
                                 </select>
-                                <button type="submit">Assign</button>
+                                <button type="submit" onclick="document.getElementById('campaignDialog').close()">Assign</button>
                                 <button type="button" onclick="document.getElementById('campaignDialog').close()">Close</button>
                             </form>
                         </dialog>
