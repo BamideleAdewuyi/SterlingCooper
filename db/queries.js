@@ -35,6 +35,10 @@ async function assignToCampaignPost({executiveId, campaignId}) {
     await pool.query("INSERT INTO assignment (executive_id, campaign_id) VALUES ($1, $2) ON CONFLICT DO NOTHING", [executiveId, campaignId])
 };
 
+async function getExecutiveDetails(id) {
+    
+};
+
 module.exports = {
     getAllExecutives,
     postNewExecutive,
@@ -44,4 +48,5 @@ module.exports = {
     deleteCampaign,
     getAllTypesOfClient,
     assignToCampaignPost,
+    getExecutiveDetails,
 };
