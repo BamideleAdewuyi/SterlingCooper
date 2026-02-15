@@ -62,6 +62,10 @@ async function postAssignToCampaign(req, res) {
     }
 };
 
+async function executiveDetailsGet(req, res) {
+
+};
+
 module.exports = {
     homeGet,
     executivesGet,
@@ -72,4 +76,5 @@ module.exports = {
     deleteCampaign,
     allTypesGet,
     postAssignToCampaign,
+    executiveDetailsGet,
 };
