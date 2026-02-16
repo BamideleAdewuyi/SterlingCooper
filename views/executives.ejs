@@ -21,12 +21,12 @@
                 <div class="executive">
                     <% for (const executive of executives) { %>
                         <form action="/executive/<%= executive.id %>" method="POST">
-                            <h3>Name: <%= executive.first_name %> <%= executive.last_name %> </h3>
+                            <h3>Name: <%= executive.first_name %> <%= executive.last_name %></h3>
                             <a href="/executiveDetails/<%= executive.id %>">See campaigns</a>
                             <button type="submit" >Delete</button>
-                            <button type="button" onclick="document.getElementById('campaignDialog').showModal()">Assign to Campaign</button>
+                            <button type="button" onclick="document.getElementById('campaignDialog<%= executive.id %>').showModal()">Assign to Campaign</button>
                         </form>
-                        <dialog id="campaignDialog">
+                        <dialog id="campaignDialog<%= executive.id %>">
                             <h4>Assign this executive to a campaign</h4>
                             <form action="<%= executive.id %>" method="POST">
                                 <label for="campaigns">Select campaign to assign</label>
@@ -35,8 +35,8 @@
                                         <option value="<%= campaign.id %>"><%= campaign.brand %></option>
                                     <% } %>
                                 </select>
-                                <button type="submit" onclick="document.getElementById('campaignDialog').close()">Assign</button>
-                                <button type="button" onclick="document.getElementById('campaignDialog').close()">Close</button>
+                                <button type="submit" onclick="document.getElementById('campaignDialog<%= executive.id %>').close()">Assign</button>
+                                <button type="button" onclick="document.getElementById('campaignDialog<%= executive.id %>').close()">Close</button>
                             </form>
                         </dialog>
                     <% } %>
