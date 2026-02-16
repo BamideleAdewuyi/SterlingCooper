@@ -4,7 +4,7 @@ function homeGet(req, res) {
     res.render("index");
 };
 
-async function executivesGet(req, res) {
+async function allExecutivesGet(req, res) {
   const executives = await db.getAllExecutives();
   const campaigns = await db.getAllCampaigns();
   res.render("executives", {
@@ -72,7 +72,7 @@ async function executiveDetailsGet(req, res) {
 
 module.exports = {
     homeGet,
-    executivesGet,
+    allExecutivesGet,
     newExecutivePost,
     deleteExecutive,
     campaignsGet,
