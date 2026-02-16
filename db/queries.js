@@ -1,5 +1,10 @@
 const pool = require("./pool");
 
+async function getExecutiveById(id) {
+    const { rows } = await pool.query(`SELECT * FROM executive WHERE id = ${id}`);
+    return rows;
+};
+
 async function getAllExecutives() {
     const { rows } = await pool.query("SELECT * FROM executive");
     return rows;
@@ -41,6 +46,7 @@ async function getExecutiveDetails(id) {
 };
 
 module.exports = {
+    getExecutiveById,
     getAllExecutives,
     postNewExecutive,
     deleteExecutive,
