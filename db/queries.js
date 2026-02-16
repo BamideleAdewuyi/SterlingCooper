@@ -36,7 +36,7 @@ async function assignToCampaignPost({executiveId, campaignId}) {
 };
 
 async function getExecutiveDetails(id) {
-    const { rows } = pool.query(`SELECT first_name, last_name, brand FROM executive JOIN assignment ON executive.id = assignment.executive_id JOIN campaign ON assignment.campaign_id = campaign.id WHERE executive.id = ${id}`);
+    const { rows } = await pool.query(`SELECT first_name, last_name, brand FROM executive JOIN assignment ON executive.id = assignment.executive_id JOIN campaign ON assignment.campaign_id = campaign.id WHERE executive.id = ${id}`);
     return rows;
 };
 
