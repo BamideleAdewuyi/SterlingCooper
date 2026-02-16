@@ -4,7 +4,7 @@ const sterlingCooperRouter = Router();
 
 // Get
 sterlingCooperRouter.get("/", sterlingCooperController.homeGet);
-sterlingCooperRouter.get("/executives", sterlingCooperController.executivesGet);
+sterlingCooperRouter.get("/executives", sterlingCooperController.allExecutivesGet);
 sterlingCooperRouter.get("/campaigns", sterlingCooperController.campaignsGet);
 sterlingCooperRouter.get("/types", sterlingCooperController.allTypesGet);
 sterlingCooperRouter.get("/executiveDetails/:id", sterlingCooperController.executiveDetailsGet);
