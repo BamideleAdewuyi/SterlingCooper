@@ -3,10 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= title %></title>
+    <title>Details</title>
 </head>
 <body>
     <%- include("partials/header.ejs") %>
+    <div class="campaigns">
+        <h1><%= campaigns[0].first_name %> <%= campaigns[0].last_name %>'s campaigns</h1>
+        <% if (campaigns.length > 0) { %> 
+            <% for (const campaign of campaigns) { %>
+                <form action="" method="GET">
+                    <h2>Brand: <%= campaign.brand %></h2>
+                </form>
+            <% } %>
+        <% } else { %>
+            <p>Not assigned to any campaigns</p>
+        <% } %>
+    </div>
     
 </body>
 </html>
