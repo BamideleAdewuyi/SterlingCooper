@@ -64,9 +64,12 @@ async function postAssignToCampaign(req, res) {
 
 async function executiveDetailsGet(req, res) {
     const id = req.params.id;
+    const executiveName = await db.getExecutiveById(id);
     const campaigns = await db.getExecutiveDetails(id);
     res.render("executiveDetails", {
-        campaigns: campaigns
+        campaigns: campaigns,
+        firstName: executiveName[0].first_name,
+        lastName: executiveName[0].last_name,
     });
 };
 
