@@ -22,7 +22,21 @@
                             <h3>Brand: <%= campaign.brand %> </h3>
                             <a href="/campaignDetails/<%= campaign.id %>">See executives</a>
                             <button type="submit" >Delete</button>
+                            <button type="button">Assign to Executive</button>
                         </form>
+                        <dialog id="executiveDialog<%= campaign.id %>">
+                            <h4>Assign this executive to a campaign</h4>
+                            <form action="<%= campaign.id %>" method="POST">
+                                <label for="executives">Select campaign to assign</label>
+                                <select name="executiveId" id="executives">
+                                    <% for (const campaign of campaigns) { %>
+                                        <option value="<%= executive.id %>"><%= executive.firstName %> <%= executive.lastName %></option>
+                                    <% } %>
+                                </select>
+                                <button type="submit" onclick="document.getElementById('executiveDialog<%= campaign.id %>').close()">Assign</button>
+                                <button type="button" onclick="document.getElementById('executiveDialog<%= campaign.id %>>').close()">Close</button>
+                            </form>
+                        </dialog>
                     <% } %>
                 </div>
         <% } else { %>
