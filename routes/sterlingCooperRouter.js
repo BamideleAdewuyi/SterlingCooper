@@ -12,7 +12,8 @@ sterlingCooperRouter.get("/executiveDetails/:id", sterlingCooperController.execu
 // Post
 sterlingCooperRouter.post("/executives", sterlingCooperController.newExecutivePost);
 sterlingCooperRouter.post("/campaigns", sterlingCooperController.newCampaignPost);
-sterlingCooperRouter.post("/:executiveId", sterlingCooperController.postAssignToCampaign);
+sterlingCooperRouter.post("/assignToCampaign/:executiveId", sterlingCooperController.postAssignToCampaign);
+sterlingCooperRouter.post("/assignToExecutive/:campaignId", sterlingCooperController.postAssignToExecutive);
 
 // Delete
 sterlingCooperRouter.post("/executive/:id", sterlingCooperController.deleteExecutive);
