@@ -62,6 +62,12 @@ async function postAssignToCampaign(req, res) {
     db.assignToCampaignPost({executiveId, campaignId});
 };
 
+async function postAssignToExecutive(req, res) {
+    const campaignId = req.params.campaignId;
+    const executiveId = req.body.executiveId;
+    db.assignToExecutivePost({campaignId, executiveId});
+};
+
 async function executiveDetailsGet(req, res) {
     const id = req.params.id;
     const executiveName = await db.getExecutiveById(id);
@@ -84,4 +90,5 @@ module.exports = {
     allTypesGet,
     postAssignToCampaign,
     executiveDetailsGet,
+    postAssignToExecutive,
 };
