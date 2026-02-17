@@ -28,7 +28,7 @@
                         </form>
                         <dialog id="campaignDialog<%= executive.id %>">
                             <h4>Assign this executive to a campaign</h4>
-                            <form action="<%= executive.id %>" method="POST">
+                            <form action="assignToCampaign/<%= executive.id %>" method="POST">
                                 <label for="campaigns">Select campaign to assign</label>
                                 <select name="campaignId" id="campaigns">
                                     <% for (const campaign of campaigns) { %>
