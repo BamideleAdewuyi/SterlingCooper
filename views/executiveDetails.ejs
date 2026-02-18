@@ -13,6 +13,7 @@
             <% for (const campaign of campaigns) { %>
                 <form action="" method="GET">
                     <h2>Brand: <%= campaign.brand %></h2>
+                    <a href="/campaignDetails/<%= campaign.campaign_id %>">See all executives</a>
                 </form>
             <% } %>
         <% } else { %>
