@@ -18,6 +18,11 @@ async function deleteExecutive(id) {
     await pool.query("DELETE FROM executive WHERE id = $1", [id]);
 };
 
+async function getCampaignById(id) {
+    const { rows } = await pool.query(`SELECT * FROM campaign WHERE id = ${id}`);
+    return rows;
+};
+
 async function getAllCampaigns() {
     const { rows } = await pool.query("SELECT * FROM campaign");
     return rows;
@@ -54,6 +59,7 @@ module.exports = {
     getAllExecutives,
     postNewExecutive,
     deleteExecutive,
+    getCampaignById,
     getAllCampaigns,
     postNewCampaign,
     deleteCampaign,
