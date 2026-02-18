@@ -13,6 +13,7 @@
             <% for (const executive of executives) { %>
                 <form action="" method="GET">
                     <h2>Executive: <%= executive.first_name %> <%= executive.last_name %></h2>
+                    <a href="/executiveDetails/<%= executive.executive_id %>">See all campaigns</a>
                 </form>
             <% } %>
         <% } else { %>
