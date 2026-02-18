@@ -79,6 +79,16 @@ async function executiveDetailsGet(req, res) {
     });
 };
 
+async function campaignDetailsGet (req, res) {
+    const id = req.params.id;
+    const campaignName = await db.getCampaignById(id);
+    const executives = await db.getCampaignDetails(id);
+    res.render("campaignDetails", {
+        executives: executives,
+        brand: campaignName[0].brand,
+    });
+};
+
 module.exports = {
     homeGet,
     allExecutivesGet,
@@ -90,5 +100,6 @@ module.exports = {
     allTypesGet,
     postAssignToCampaign,
     executiveDetailsGet,
+    campaignDetailsGet,
     postAssignToExecutive,
 };
