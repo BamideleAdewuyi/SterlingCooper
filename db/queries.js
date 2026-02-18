@@ -59,6 +59,10 @@ async function getCampaignDetails(id) {
     return rows;
 };
 
+async function postRemoveExecutiveFromCampaign({executiveId, campaignId}) {
+    await pool.query("DELETE FROM assignment WHERE executive_id = $1 AND campaign_id = $2", [executiveId, campaignId]);
+};
+
 module.exports = {
     getExecutiveById,
     getAllExecutives,
@@ -73,4 +77,5 @@ module.exports = {
     assignToExecutivePost,
     getExecutiveDetails,
     getCampaignDetails,
+    postRemoveExecutiveFromCampaign,
 };
