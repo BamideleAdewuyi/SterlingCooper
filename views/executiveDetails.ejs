@@ -11,9 +11,10 @@
         <h1><%= firstName %> <%= lastName %>'s campaigns</h1>
         <% if (campaigns.length > 0) { %> 
             <% for (const campaign of campaigns) { %>
-                <form action="" method="GET">
+                <form action="/removeFromCampaign/<%=campaign.campaign_id %>/<%= executiveId %>" method="POST">
                     <h2>Brand: <%= campaign.brand %></h2>
                     <a href="/campaignDetails/<%= campaign.campaign_id %>">See all executives</a>
+                    <button type="submit">Remove Campaign</button>
                 </form>
             <% } %>
         <% } else { %>
