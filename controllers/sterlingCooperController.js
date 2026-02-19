@@ -40,7 +40,10 @@ async function allCampaignsGet(req, res) {
 
 async function newCampaignPost(req, res) {
     const { brand } = req.body;
-    await db.postNewCampaign({ brand });
+    const campaignId = await db.postNewCampaign({ brand });
+    const corporateOrCharity = req.body.CorporateOrCharity;
+    const typeId = req.body.type;
+    await db.postAssignNewCampaignToTypes({ campaignId, corporateOrCharity, typeId })
     res.redirect("campaigns");
 };
 
