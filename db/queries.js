@@ -29,12 +29,9 @@ async function getAllCampaigns() {
 };
 
 async function postNewCampaign({brand}) {
-    await pool.query("INSERT INTO campaign (brand) VALUES ($1)", [brand]);
-};
-
-async function getNewestCampaign() {
-    const { rows } = await pool.query("SELECT MAX(id) FROM campaign");
-    return rows;
+    const { rows } = await pool.query("INSERT INTO campaign (brand) VALUES ($1) RETURNING id", [brand]);
+    const id = rows[0].id;
+    return id;
 };
 
 async function postAssignNewCampaignToTypes({ campaignId, corporateOrCharity, typeId }) {
@@ -86,7 +83,6 @@ module.exports = {
     getCampaignById,
     getAllCampaigns,
     postNewCampaign,
-    getNewestCampaign,
     deleteCampaign,
     postAssignNewCampaignToTypes,
     getAllTypesOfClient,
