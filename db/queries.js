@@ -64,7 +64,8 @@ async function postRemoveExecutiveFromCampaign({executiveId, campaignId}) {
 };
 
 async function getAllCampaignTypes() {
-
+    const { rows } = pool.query("SELECT * FROM type_of_client");
+    return rows;
 };
 
 module.exports = {
