@@ -11,7 +11,7 @@
         <h1>Executives Working on <%= brand %></h1>
         <% if (executives.length > 0) { %> 
             <% for (const executive of executives) { %>
-                <form action="" method="GET">
+                <form action="/removeFromExecutive/<%= campaignId %>/<%=executive.executive_id %>" method="POST">
                     <h2>Executive: <%= executive.first_name %> <%= executive.last_name %></h2>
                     <a href="/executiveDetails/<%= executive.executive_id %>">See all campaigns</a>
                     <button type="submit">Remove from campaign</button>
