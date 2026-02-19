@@ -98,6 +98,13 @@ async function removeExecutiveFromCampaignPost(req, res) {
     await executiveDetailsGet(req, res);
 };
 
+async function removeCampaignFromExecutivePost(req, res) {
+    const campaignId = req.params.campaignId;
+    const executiveId = req.params.executiveId;
+    await db.postRemoveExecutiveFromCampaign({ executiveId, campaignId });
+    await campaignDetailsGet(req, res);
+};
+
 module.exports = {
     homeGet,
     allExecutivesGet,
@@ -112,4 +119,5 @@ module.exports = {
     campaignDetailsGet,
     postAssignToExecutive,
     removeExecutiveFromCampaignPost,
+    removeCampaignFromExecutivePost,
 };
