@@ -69,7 +69,7 @@ async function postAssignToExecutive(req, res) {
 };
 
 async function executiveDetailsGet(req, res) {
-    const id = req.params.id;
+    const id = req.params.executiveId;
     const executiveName = await db.getExecutiveById(id);
     const campaigns = await db.getExecutiveDetails(id);
     res.render("executiveDetails", {
@@ -90,6 +90,13 @@ async function campaignDetailsGet (req, res) {
     });
 };
 
+async function removeExecutiveFromCampaignPost(req, res) {
+    const campaignId = req.params.campaignId;
+    const executiveId = req.params.executiveId;
+    await db.postRemoveExecutiveFromCampaign({ executiveId, campaignId });
+    await executiveDetailsGet(req, res);
+};
+
 module.exports = {
     homeGet,
     allExecutivesGet,
@@ -103,4 +110,5 @@ module.exports = {
     executiveDetailsGet,
     campaignDetailsGet,
     postAssignToExecutive,
+    removeExecutiveFromCampaignPost,
 };
