@@ -1,7 +1,7 @@
 const pool = require("./pool");
 
 async function getExecutiveById(id) {
-    const { rows } = await pool.query(`SELECT * FROM executive WHERE id = ${id}`);
+    const { rows } = await pool.query(`SELECT * FROM executive WHERE id = $1`, [id]);
     return rows;
 };
 
@@ -19,7 +19,7 @@ async function deleteExecutive(id) {
 };
 
 async function getCampaignById(id) {
-    const { rows } = await pool.query(`SELECT * FROM campaign WHERE id = ${id}`);
+    const { rows } = await pool.query(`SELECT * FROM campaign WHERE id = $1`, [id]);
     return rows;
 };
 
@@ -35,7 +35,7 @@ async function postNewCampaign({brand}) {
 };
 
 async function getCampaignTypes({ campaignId }) {
-    const { rows } = pool.query(`SELECT type, campaign.id, type_of_client_id FROM campaign JOIN campaign_type ON campaign.id = campaign_type.campaign_id JOIN type_of_client ON campaign_type.type_of_client_id = type_of_client.id WHERE campaign.id = $1`, [campaignId]);
+    const { rows } = await pool.query(`SELECT type, campaign_id, type_of_client_id FROM campaign JOIN campaign_type ON campaign.id = campaign_type.campaign_id JOIN type_of_client ON campaign_type.type_of_client_id = type_of_client.id WHERE campaign.id = ($1)`, [campaignId]);
     return rows;
 };
 
@@ -62,12 +62,12 @@ async function assignToExecutivePost({campaignId, executiveId}) {
 };
 
 async function getExecutiveDetails(id) {
-    const { rows } = await pool.query(`SELECT first_name, last_name, brand, assignment.campaign_id FROM executive JOIN assignment ON executive.id = assignment.executive_id JOIN campaign ON assignment.campaign_id = campaign.id WHERE executive.id = ${id}`);
+    const { rows } = await pool.query(`SELECT first_name, last_name, brand, assignment.campaign_id FROM executive JOIN assignment ON executive.id = assignment.executive_id JOIN campaign ON assignment.campaign_id = campaign.id WHERE executive.id = $1`, [id]);
     return rows;
 };
 
 async function getCampaignDetails(id) {
-    const { rows } = await pool.query(`SELECT first_name, last_name, brand, assignment.executive_id FROM executive JOIN assignment ON executive.id = assignment.executive_id JOIN campaign ON assignment.campaign_id = campaign.id WHERE campaign.id = ${id}`);
+    const { rows } = await pool.query(`SELECT first_name, last_name, brand, assignment.executive_id FROM executive JOIN assignment ON executive.id = assignment.executive_id JOIN campaign ON assignment.campaign_id = campaign.id WHERE campaign.id = $1`, [id]);
     return rows;
 };
 
