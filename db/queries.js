@@ -37,6 +37,10 @@ async function getNewestCampaign() {
     return rows;
 };
 
+async function postAssignCampaignToType({ campaignId, typeId }) {
+    await pool.query(`INSERT INTO campaign_type (campaign_id, type_of_client_id) VALUES ($1, $2) ON CONFLICT DO NOTHING`, [campaignId, typeId]);
+};
+
 async function deleteCampaign(id) {
     await pool.query("DELETE FROM campaign WHERE id = $1", [id]);
 };
@@ -83,6 +87,7 @@ module.exports = {
     postNewCampaign,
     getNewestCampaign,
     deleteCampaign,
+    postAssignCampaignToType,
     getAllTypesOfClient,
     assignToCampaignPost,
     assignToExecutivePost,
