@@ -73,6 +73,7 @@ async function executiveDetailsGet(req, res) {
     const executiveName = await db.getExecutiveById(id);
     const campaigns = await db.getExecutiveDetails(id);
     res.render("executiveDetails", {
+        executiveId: id,
         campaigns: campaigns,
         firstName: executiveName[0].first_name,
         lastName: executiveName[0].last_name,
