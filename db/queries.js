@@ -35,7 +35,8 @@ async function postNewCampaign({brand}) {
 };
 
 async function getCampaignTypes({ campaignId }) {
-    
+    const { rows } = pool.query(`SELECT type, campaign.id, type_of_client_id FROM campaign JOIN campaign_type ON campaign.id = campaign_type.campaign_id JOIN type_of_client ON campaign_type.type_of_client_id = type_of_client.id WHERE campaign.id = $1`, [campaignId]);
+    return rows;
 };
 
 async function postAssignNewCampaignToTypes({ campaignId, corporateOrCharity, typeId }) {
