@@ -34,6 +34,10 @@ async function postNewCampaign({brand}) {
     return id;
 };
 
+async function getCampaignTypes({ campaignId }) {
+    
+};
+
 async function postAssignNewCampaignToTypes({ campaignId, corporateOrCharity, typeId }) {
     await pool.query(`INSERT INTO campaign_type (campaign_id, type_of_client_id) VALUES ($1, $2) ON CONFLICT DO NOTHING`, [campaignId, corporateOrCharity]);
     await pool.query(`INSERT INTO campaign_type (campaign_id, type_of_client_id) VALUES ($1, $2) ON CONFLICT DO NOTHING`, [campaignId, typeId]);
@@ -83,6 +87,7 @@ module.exports = {
     getCampaignById,
     getAllCampaigns,
     postNewCampaign,
+    getCampaignTypes,
     deleteCampaign,
     postAssignNewCampaignToTypes,
     getAllTypesOfClient,
