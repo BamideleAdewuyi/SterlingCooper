@@ -29,10 +29,12 @@ async function deleteExecutive(req, res) {
 async function allCampaignsGet(req, res) {
     const campaigns = await db.getAllCampaigns();
     const executives = await db.getAllExecutives();
+    const types = await db.getAllCampaignTypes();
     res.render("campaigns", {
         title: "All Campaigns",
         campaigns: campaigns,
         executives: executives,
+        types: types,
     });
 };
 
