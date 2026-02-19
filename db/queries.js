@@ -32,6 +32,11 @@ async function postNewCampaign({brand}) {
     await pool.query("INSERT INTO campaign (brand) VALUES ($1)", [brand]);
 };
 
+async function getNewestCampaign() {
+    const { rows } = await pool.query("SELECT MAX(id) FROM campaign");
+    return rows;
+};
+
 async function deleteCampaign(id) {
     await pool.query("DELETE FROM campaign WHERE id = $1", [id]);
 };
@@ -76,6 +81,7 @@ module.exports = {
     getCampaignById,
     getAllCampaigns,
     postNewCampaign,
+    getNewestCampaign,
     deleteCampaign,
     getAllTypesOfClient,
     assignToCampaignPost,
