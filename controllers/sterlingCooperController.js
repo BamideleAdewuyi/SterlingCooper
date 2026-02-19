@@ -81,7 +81,7 @@ async function executiveDetailsGet(req, res) {
 };
 
 async function campaignDetailsGet (req, res) {
-    const id = req.params.id;
+    const id = req.params.campaignId;
     const campaignName = await db.getCampaignById(id);
     const executives = await db.getCampaignDetails(id);
     res.render("campaignDetails", {
