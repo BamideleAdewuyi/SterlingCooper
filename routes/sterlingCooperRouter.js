@@ -17,6 +17,7 @@ sterlingCooperRouter.post("/assignToCampaign/:executiveId", sterlingCooperContro
 sterlingCooperRouter.post("/assignToExecutive/:campaignId", sterlingCooperController.postAssignToExecutive);
 sterlingCooperRouter.post("/removeFromCampaign/:campaignId/:executiveId", sterlingCooperController.removeExecutiveFromCampaignPost);
 sterlingCooperRouter.post("/removeFromExecutive/:campaignId/:executiveId", sterlingCooperController.removeCampaignFromExecutivePost);
+sterlingCooperRouter.post("/updateCampaignTypes/:campaignId/:oldCorporateOrCharity/:oldTypeId", sterlingCooperController.updateCampaignTypesPost);
 
 // Delete
 sterlingCooperRouter.post("/executive/:id", sterlingCooperController.deleteExecutive);
