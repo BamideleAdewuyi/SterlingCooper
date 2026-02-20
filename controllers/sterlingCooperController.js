@@ -116,7 +116,25 @@ async function removeCampaignFromExecutivePost(req, res) {
 }
 
 async function updateCampaignTypesPost(req, res) {
-    
+    const campaignId = req.params.campaignId;
+    const oldCorporateOrCharity = req.params.oldCorporateOrCharity;
+    const oldTypeId = req.params.oldTypeId;
+    const newCorporateOrCharity = req.body.CorporateOrCharity;
+    const newTypeId = req.body.type;
+    await db.postUpdateCampaignTypes({ campaignId, oldCorporateOrCharity, oldTypeId, newCorporateOrCharity, newTypeId });
+
+    const campaignName = await db.getCampaignById(campaignId);
+    const executives = await db.getCampaignDetails(campaignId);
+    const types = await db.getCampaignTypes({ campaignId });
+    const allTypes = await db.getAllTypesOfClient();
+
+    res.render("campaignDetails", {
+        campaignId: campaignId,
+        executives: executives,
+        brand: campaignName[0].brand,
+        types: types,
+        allTypes: allTypes,
+    });
 }
 
 module.exports = {
