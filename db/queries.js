@@ -80,6 +80,10 @@ async function getAllCampaignTypes() {
     return rows;
 };
 
+async function updateCampaignTypes({ campaignId, corporateOrCharity, typeId }) {
+    
+}
+
 module.exports = {
     getExecutiveById,
     getAllExecutives,
@@ -98,4 +102,5 @@ module.exports = {
     getCampaignDetails,
     postRemoveExecutiveFromCampaign,
     getAllCampaignTypes,
+    updateCampaignTypes,
 };
