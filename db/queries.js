@@ -85,6 +85,10 @@ async function postUpdateCampaignTypes({ campaignId, oldCorporateOrCharity, oldT
     await pool.query("UPDATE campaign_type SET type_of_client_id = $3 WHERE campaign_id = $1 AND type_of_client_id = $2", [campaignId, oldTypeId, newTypeId]);
 }
 
+async function getCampaignsByType({ typeId }) {
+    
+}
+
 module.exports = {
     getExecutiveById,
     getAllExecutives,
@@ -104,4 +108,5 @@ module.exports = {
     postRemoveExecutiveFromCampaign,
     getAllCampaignTypes,
     postUpdateCampaignTypes,
+    getCampaignsByType,
 };
