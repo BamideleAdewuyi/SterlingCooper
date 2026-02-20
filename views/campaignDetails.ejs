@@ -26,5 +26,35 @@
         <li><a href=""><%= types[0].type %></a></li>
         <li><a href=""><%= types[1].type %></a></li>
     </ul>
+    <button type="button" onclick="document.getElementById('editTypes').showModal()">Edit campaign types</button>
+    <dialog id="editTypes">
+        <h4>Reassign campaign types</h4>
+        <form action="" method="POST">
+            <% if (types[0].type == "Corporate") { %>
+                <label for="Corporate">Corporate</label>
+                <input type="radio" id="Corporate" name="CorporateOrCharity" value="1" checked="checked">
+                <label for="Charity">Charity</label>
+                <input type="radio" id="Charity" name="CorporateOrCharity" value="2" >
+            <% } else { %>
+                <label for="Corporate">Corporate</label>
+                <input type="radio" id="Corporate" name="CorporateOrCharity" value="1">
+                <label for="Charity">Charity</label>
+                <input type="radio" id="Charity" name="CorporateOrCharity" value="2" checked="checked">
+            <% } %>
+            <select name="type" id="types">
+                <% for (const type of allTypes) { %>
+                    <% if (type.id > 2) { %>
+                        <% if (type.type == types[1].type) { %>
+                            <option value="<%= type.id %>" selected="selected"><%= type.type %></option>
+                        <% } else { %>
+                            <option value="<%= type.id %>"><%= type.type %></option>
+                        <% } %>
+                    <% } %>
+                <% } %>
+            </select>
+            <button type="submit" onclick="document.getElementById('editTypes').close()">Assign</button>
+            <button type="button" onclick="document.getElementById('editTypes').close()">Close</button>
+        </form>
+    </dialog>
 </body>
 </html>
