@@ -85,6 +85,12 @@ async function postUpdateCampaignTypes({ campaignId, oldCorporateOrCharity, oldT
     await pool.query("UPDATE campaign_type SET type_of_client_id = $3 WHERE campaign_id = $1 AND type_of_client_id = $2", [campaignId, oldTypeId, newTypeId]);
 }
 
+async function getTypeById({ typeId }) {
+    const { rows } = await pool.query("SELECT type FROM type_of_client WHERE id = $1", [typeId]);
+    const type = rows[0].type;
+    return type;
+}
+
 async function getCampaignsByType({ typeId }) {
     const { rows } = await pool.query("SELECT DISTINCT campaign.brand, campaign_type.campaign_id, type_of_client.type FROM campaign JOIN campaign_type ON campaign.id = campaign_type.campaign_id JOIN type_of_client ON type_of_client.id = campaign_type.type_of_client_id WHERE type_of_client.id = $1;", [typeId]);
     return rows;
@@ -109,5 +115,6 @@ module.exports = {
     postRemoveExecutiveFromCampaign,
     getAllCampaignTypes,
     postUpdateCampaignTypes,
+    getTypeById,
     getCampaignsByType,
 };
