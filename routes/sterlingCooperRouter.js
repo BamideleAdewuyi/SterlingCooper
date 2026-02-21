@@ -10,6 +10,7 @@ sterlingCooperRouter.get("/types", sterlingCooperController.allTypesGet);
 sterlingCooperRouter.get("/executiveDetails/:executiveId", sterlingCooperController.executiveDetailsGet);
 sterlingCooperRouter.get("/campaignDetails/:campaignId", sterlingCooperController.campaignDetailsGet);
 sterlingCooperRouter.get("/types/:typeId", sterlingCooperController.campaignsByTypeGet);
+sterlingCooperRouter.get("/campaignDetails/types/:typeId", sterlingCooperController.campaignsByTypeGet);
 
 // Post
 sterlingCooperRouter.post("/executives", sterlingCooperController.newExecutivePost);
