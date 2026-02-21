@@ -23,8 +23,8 @@
     </div>
     <h3><%= brand %> campaign types</h3>
     <ul>
-        <li><a href=""><%= types[0].type %></a></li>
-        <li><a href=""><%= types[1].type %></a></li>
+        <li><a href="types/<%= types[0].type_of_client_id %>"><%= types[0].type %></a></li>
+        <li><a href="types/<%= types[1].type_of_client_id %>"><%= types[1].type %></a></li>
     </ul>
     <button type="button" onclick="document.getElementById('editTypes').showModal()">Edit campaign types</button>
     <dialog id="editTypes">
