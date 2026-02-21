@@ -137,6 +137,10 @@ async function updateCampaignTypesPost(req, res) {
     });
 }
 
+async function campaignsByTypeGet(req, res) {
+    
+}
+
 module.exports = {
     homeGet,
     allExecutivesGet,
@@ -153,4 +157,5 @@ module.exports = {
     removeExecutiveFromCampaignPost,
     removeCampaignFromExecutivePost,
     updateCampaignTypesPost,
+    campaignsByTypeGet,
 };
