@@ -138,7 +138,13 @@ async function updateCampaignTypesPost(req, res) {
 }
 
 async function campaignsByTypeGet(req, res) {
-    
+    const typeId = req.params.typeId;
+    const campaigns = await db.getCampaignsByType({typeId});
+    const type = await db.getTypeById({ typeId });
+    res.render("typeDetails", {
+        title: `${type} Campaigns`,
+        campaigns: campaigns,
+    });
 }
 
 module.exports = {
