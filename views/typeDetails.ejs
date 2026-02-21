@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+</head>
+<body>
+    <%- include("partials/header.ejs") %>
+    <h1><%= title %></h1>
+    <% if (campaigns.length > 0) { %>
+        <ul>
+            <% for (const campaign of campaigns) { %>
+                <li><%= campaign.brand %> <a href="/campaignDetails/<%= campaign.campaign_id %>">See details</a></li>
+            <% } %>
+        </ul>
+    <% } else { %>
+        <p>No <%= title %></p>
+        <% } %>
+</body>
+</html>
