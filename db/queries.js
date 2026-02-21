@@ -86,7 +86,8 @@ async function postUpdateCampaignTypes({ campaignId, oldCorporateOrCharity, oldT
 }
 
 async function getCampaignsByType({ typeId }) {
-    
+    const { rows } = await pool.query("SELECT DISTINCT campaign.brand, campaign_type.campaign_id, type_of_client.type FROM campaign JOIN campaign_type ON campaign.id = campaign_type.campaign_id JOIN type_of_client ON type_of_client.id = campaign_type.type_of_client_id WHERE type_of_client.id = $1;", [typeId]);
+    return rows;
 }
 
 module.exports = {
