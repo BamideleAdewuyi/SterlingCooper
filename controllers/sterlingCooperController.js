@@ -1,4 +1,5 @@
 const db = require("../db/queries");
+const validateUser = require("../validators/userValidator");
 
 function homeGet(req, res) {
     res.render("index");
