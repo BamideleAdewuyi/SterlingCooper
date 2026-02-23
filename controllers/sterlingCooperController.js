@@ -1,3 +1,4 @@
+const { validationResult, matchedData } = require("express-validator");
 const db = require("../db/queries");
 const validateUser = require("../validators/userValidator");
 
@@ -15,11 +16,25 @@ async function allExecutivesGet(req, res) {
   });
 }
 
-async function newExecutivePost(req, res) {
-    const { firstName, lastName } = req.body;
-    await db.postNewExecutive({ firstName, lastName });
-    res.redirect("executives");
-}
+const newExecutivePost = [
+    validateUser,
+    async (req, res) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            const executives = await db.getAllExecutives();
+            const campaigns = await db.getAllCampaigns();
+            return res.status(400).render("executives", {
+                title: "All Executives",
+                executives: executives,
+                campaigns: campaigns,
+                errors: errors.array(),
+            });
+        }
+        const { firstName, lastName } = matchedData(req);
+        await db.postNewExecutive({ firstName, lastName });
+        res.redirect("executives");
+    }
+]
 
 async function deleteExecutive(req, res) {
     const id = req.params.id;
