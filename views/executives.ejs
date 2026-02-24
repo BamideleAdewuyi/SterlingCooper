@@ -8,6 +8,7 @@
 <body>
     <%- include("partials/header.ejs") %>
     <h1>Add new executive</h1>
+    <%- include("partials/errors.ejs") %>
     <form action="/executives" method="POST">
         <label for="firstName">First Name</label>
         <input type="text" name="firstName" id="firstName">
