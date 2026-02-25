@@ -33,15 +33,19 @@
             <h4>Reassign campaign types</h4>
             <form class="updateCampaignTypesForm" action="/updateCampaignTypes/<%= campaignId %>/<%= types[0].type_of_client_id %>/<%= types[1].type_of_client_id %>" method="POST">
                 <% if (types[0].type == "Corporate") { %>
-                    <label for="Corporate">Corporate</label>
-                    <input type="radio" id="Corporate" name="CorporateOrCharity" value="1" checked="checked">
-                    <label for="Charity">Charity</label>
-                    <input type="radio" id="Charity" name="CorporateOrCharity" value="2" >
+                    <label class="radioLabel" for="Corporate">Corporate
+                        <input type="radio" id="Corporate" name="CorporateOrCharity" value="1" checked="checked">
+                    </label>
+                    <label class="radioLabel" for="Charity">Charity
+                        <input type="radio" id="Charity" name="CorporateOrCharity" value="2" >
+                    </label>
                 <% } else { %>
-                    <label for="Corporate">Corporate</label>
-                    <input type="radio" id="Corporate" name="CorporateOrCharity" value="1">
-                    <label for="Charity">Charity</label>
-                    <input type="radio" id="Charity" name="CorporateOrCharity" value="2" checked="checked">
+                    <label class="radioLabel" for="Corporate">Corporate
+                        <input type="radio" id="Corporate" name="CorporateOrCharity" value="1">
+                    </label>
+                    <label class="radioLabel" for="Charity">Charity
+                        <input type="radio" id="Charity" name="CorporateOrCharity" value="2" checked="checked">
+                    </label>
                 <% } %>
                 <select name="type" id="types">
                     <% for (const type of allTypes) { %>
