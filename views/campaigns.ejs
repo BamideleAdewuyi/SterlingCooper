@@ -11,7 +11,7 @@
         <%- include("partials/header.ejs") %>
         <h1>Add new campaign</h1>
         <%- include("partials/errors.ejs") %>
-        <form action="/campaigns" method="POST">
+        <form class="addNewCampaignForm" action="/campaigns" method="POST">
             <label for="brand">Brand name:</label>
             <input type="text" name="brand" id="brand">
             <fieldset>
