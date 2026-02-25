@@ -7,8 +7,7 @@
 
 .homePageContainer, .campaignsContainer, .addNewCampaignForm {
     display: flex;
-    flex-direction: column;
-    
+    flex-direction: column;   
 }
 
 .homePageContainer, .campaignsContainer {
@@ -24,4 +23,8 @@
     padding: 3em;
     outline: 1px solid black;
     margin: 1em;
+}
+
+fieldset {
+    padding: 1em;
 }
