@@ -28,3 +28,10 @@
 fieldset {
     padding: 1em;
 }
+
+dialog {
+    align-self: center;
+    justify-self: center;
+    width: 20em;
+    height: 20em;
+}
