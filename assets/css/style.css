@@ -5,6 +5,17 @@
     font-family: Arial, Helvetica, sans-serif
 }
 
+.updateCampaignTypesForm {
+    display: flex;
+    flex-direction: column;
+    padding-top: 1em;
+}
+
+.radioLabel {
+    display: flex;
+    align-items: center;
+}
+
 .homePageContainer, .campaignsContainer, .campaignDetailsContainer, .addNewCampaignForm {
     display: flex;
     flex-direction: column;   
