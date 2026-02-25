@@ -17,7 +17,8 @@ const validateUser = [
         .trim()
         .matches(/^[a-zA-Z\s]+$/, 'i').withMessage(`Brand name ${alphaErr}`)
         .isLength({ min: 1 }).withMessage(`Brand name ${lengthErr}`),
-    body("CorporateOrCharity").trim()
+    body("CorporateOrCharity").optional()
+        .trim()
         .isLength({ min: 1}).withMessage(`Corporate or charity ${lengthErr}`),
 ];
 
