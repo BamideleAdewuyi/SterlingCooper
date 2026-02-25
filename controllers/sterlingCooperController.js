@@ -155,18 +155,7 @@ async function updateCampaignTypesPost(req, res) {
     const newTypeId = req.body.type;
     await db.postUpdateCampaignTypes({ campaignId, oldCorporateOrCharity, oldTypeId, newCorporateOrCharity, newTypeId });
 
-    const campaignName = await db.getCampaignById(campaignId);
-    const executives = await db.getCampaignDetails(campaignId);
-    const types = await db.getCampaignTypes({ campaignId });
-    const allTypes = await db.getAllTypesOfClient();
-
-    res.render("campaignDetails", {
-        campaignId: campaignId,
-        executives: executives,
-        brand: campaignName[0].brand,
-        types: types,
-        allTypes: allTypes,
-    });
+    res.redirect(`/campaignDetails/${campaignId}`)
 }
 
 async function campaignsByTypeGet(req, res) {
