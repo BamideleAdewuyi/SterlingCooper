@@ -5,23 +5,21 @@
     font-family: Arial, Helvetica, sans-serif
 }
 
-.updateCampaignTypesForm {
+.homePageContainer, .campaignsContainer, .campaignDetailsContainer,
+.addNewCampaignForm, .updateCampaignTypesFor, .radioLabel, .executivesContainer {
     display: flex;
-    flex-direction: column;
+}
+
+.updateCampaignTypesForm {
     padding-top: 1em;
 }
 
-.radioLabel {
-    display: flex;
-    align-items: center;
-}
-
-.homePageContainer, .campaignsContainer, .campaignDetailsContainer, .addNewCampaignForm {
-    display: flex;
+.homePageContainer, .campaignsContainer, .campaignDetailsContainer,
+.addNewCampaignForm, .updateCampaignTypesFor, .executivesContainer {
     flex-direction: column;   
 }
 
-.homePageContainer, .campaignsContainer {
+.homePageContainer, .campaignsContainer, .executivesContainer, .radioLabel {
     align-items: center;
 }
 
