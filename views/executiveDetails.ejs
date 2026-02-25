@@ -14,7 +14,7 @@
             <% for (const campaign of campaigns) { %>
                 <form action="/removeFromCampaign/<%=campaign.campaign_id %>/<%= executiveId %>" method="POST">
                     <h2>Brand: <%= campaign.brand %></h2>
-                    <a href="/campaignDetails/<%= campaign.campaign_id %>">See all executives</a>
+                    <a href="/campaignDetails/<%= campaign.campaign_id %>">See details</a>
                     <button type="submit">Remove Campaign</button>
                 </form>
             <% } %>
