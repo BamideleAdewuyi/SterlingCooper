@@ -7,45 +7,47 @@
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-    <%- include("partials/header.ejs") %>
-    <h1>Add new executive</h1>
-    <%- include("partials/errors.ejs") %>
-    <form action="/executives" method="POST">
-        <label for="firstName">First Name</label>
-        <input type="text" name="firstName" id="firstName">
-        <label for="lastName">Last Name</label>
-        <input type="text" name="lastName" id="lastName">
-        <button type="submit">Add</button>
-    </form>
-    <h2><%= title %></h2>
-    <div class="executives">
-        <% if (executives.length > 0) { %> 
-                <div class="executive">
-                    <% for (const executive of executives) { %>
-                        <form action="/executive/<%= executive.id %>" method="POST">
-                            <h3>Name: <%= executive.first_name %> <%= executive.last_name %></h3>
-                            <a href="/executiveDetails/<%= executive.id %>">See campaigns</a>
-                            <button type="submit" >Delete</button>
-                            <button type="button" onclick="document.getElementById('campaignDialog<%= executive.id %>').showModal()">Assign to Campaign</button>
-                        </form>
-                        <dialog id="campaignDialog<%= executive.id %>">
-                            <h4>Assign this executive to a campaign</h4>
-                            <form action="assignToCampaign/<%= executive.id %>" method="POST">
-                                <label for="campaigns">Select campaign to assign</label>
-                                <select name="campaignId" id="campaigns">
-                                    <% for (const campaign of campaigns) { %>
-                                        <option value="<%= campaign.id %>"><%= campaign.brand %></option>
-                                    <% } %>
-                                </select>
-                                <button type="submit" onclick="document.getElementById('campaignDialog<%= executive.id %>').close()">Assign</button>
-                                <button type="button" onclick="document.getElementById('campaignDialog<%= executive.id %>').close()">Close</button>
+    <div class="executivesContainer">
+        <%- include("partials/header.ejs") %>
+        <h1>Add new executive</h1>
+        <%- include("partials/errors.ejs") %>
+        <form action="/executives" method="POST">
+            <label for="firstName">First Name</label>
+            <input type="text" name="firstName" id="firstName">
+            <label for="lastName">Last Name</label>
+            <input type="text" name="lastName" id="lastName">
+            <button type="submit">Add</button>
+        </form>
+        <h2><%= title %></h2>
+        <div class="executives">
+            <% if (executives.length > 0) { %> 
+                    <div class="executive">
+                        <% for (const executive of executives) { %>
+                            <form action="/executive/<%= executive.id %>" method="POST">
+                                <h3>Name: <%= executive.first_name %> <%= executive.last_name %></h3>
+                                <a href="/executiveDetails/<%= executive.id %>">See campaigns</a>
+                                <button type="submit" >Delete</button>
+                                <button type="button" onclick="document.getElementById('campaignDialog<%= executive.id %>').showModal()">Assign to Campaign</button>
                             </form>
-                        </dialog>
-                    <% } %>
-                </div>
-        <% } else { %>
-            <p>No executives in system</p>
-        <% } %>
+                            <dialog id="campaignDialog<%= executive.id %>">
+                                <h4>Assign this executive to a campaign</h4>
+                                <form action="assignToCampaign/<%= executive.id %>" method="POST">
+                                    <label for="campaigns">Select campaign to assign</label>
+                                    <select name="campaignId" id="campaigns">
+                                        <% for (const campaign of campaigns) { %>
+                                            <option value="<%= campaign.id %>"><%= campaign.brand %></option>
+                                        <% } %>
+                                    </select>
+                                    <button type="submit" onclick="document.getElementById('campaignDialog<%= executive.id %>').close()">Assign</button>
+                                    <button type="button" onclick="document.getElementById('campaignDialog<%= executive.id %>').close()">Close</button>
+                                </form>
+                            </dialog>
+                        <% } %>
+                    </div>
+            <% } else { %>
+                <p>No executives in system</p>
+            <% } %>
+        </div>
     </div>
 </body>
 </html>
