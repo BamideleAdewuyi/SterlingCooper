@@ -42,7 +42,7 @@
                         <% for (const campaign of campaigns) { %>
                             <form action="/campaign/<%= campaign.id %>" method="POST">
                                 <h3>Brand: <%= campaign.brand %> </h3>
-                                <a href="/campaignDetails/<%= campaign.id %>">See executives</a>
+                                <a href="/campaignDetails/<%= campaign.id %>">See details</a>
                                 <button type="submit" >Delete</button>
                                 <button type="button" onclick="document.getElementById('executiveDialog<%= campaign.id %>').showModal()">Assign to Executive</button>
                             </form>
