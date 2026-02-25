@@ -7,55 +7,57 @@
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-    <%- include("partials/header.ejs") %>
-    <div class="executives">
-        <h1>Executives Working on <%= brand %></h1>
-        <% if (executives.length > 0) { %> 
-            <% for (const executive of executives) { %>
-                <form action="/removeFromExecutive/<%= campaignId %>/<%=executive.executive_id %>" method="POST">
-                    <h2>Executive: <%= executive.first_name %> <%= executive.last_name %></h2>
-                    <a href="/executiveDetails/<%= executive.executive_id %>">See all campaigns</a>
-                    <button type="submit">Remove from campaign</button>
-                </form>
-            <% } %>
-        <% } else { %>
-            <p>No executives currently assigned</p>
-        <% } %>
-    </div>
-    <h3><%= brand %> campaign types</h3>
-    <ul>
-        <li><a href="types/<%= types[0].type_of_client_id %>"><%= types[0].type %></a></li>
-        <li><a href="types/<%= types[1].type_of_client_id %>"><%= types[1].type %></a></li>
-    </ul>
-    <button type="button" onclick="document.getElementById('editTypes').showModal()">Edit campaign types</button>
-    <dialog id="editTypes">
-        <h4>Reassign campaign types</h4>
-        <form action="/updateCampaignTypes/<%= campaignId %>/<%= types[0].type_of_client_id %>/<%= types[1].type_of_client_id %>" method="POST">
-            <% if (types[0].type == "Corporate") { %>
-                <label for="Corporate">Corporate</label>
-                <input type="radio" id="Corporate" name="CorporateOrCharity" value="1" checked="checked">
-                <label for="Charity">Charity</label>
-                <input type="radio" id="Charity" name="CorporateOrCharity" value="2" >
+    <div class="campaignDetailsContainer">
+        <%- include("partials/header.ejs") %>
+        <div class="executives">
+            <h1>Executives Working on <%= brand %></h1>
+            <% if (executives.length > 0) { %> 
+                <% for (const executive of executives) { %>
+                    <form action="/removeFromExecutive/<%= campaignId %>/<%=executive.executive_id %>" method="POST">
+                        <h2>Executive: <%= executive.first_name %> <%= executive.last_name %></h2>
+                        <a href="/executiveDetails/<%= executive.executive_id %>">See all campaigns</a>
+                        <button type="submit">Remove from campaign</button>
+                    </form>
+                <% } %>
             <% } else { %>
-                <label for="Corporate">Corporate</label>
-                <input type="radio" id="Corporate" name="CorporateOrCharity" value="1">
-                <label for="Charity">Charity</label>
-                <input type="radio" id="Charity" name="CorporateOrCharity" value="2" checked="checked">
+                <p>No executives currently assigned</p>
             <% } %>
-            <select name="type" id="types">
-                <% for (const type of allTypes) { %>
-                    <% if (type.id > 2) { %>
-                        <% if (type.type == types[1].type) { %>
-                            <option value="<%= type.id %>" selected="selected"><%= type.type %></option>
-                        <% } else { %>
-                            <option value="<%= type.id %>"><%= type.type %></option>
+        </div>
+        <h3><%= brand %> campaign types</h3>
+        <ul>
+            <li><a href="types/<%= types[0].type_of_client_id %>"><%= types[0].type %></a></li>
+            <li><a href="types/<%= types[1].type_of_client_id %>"><%= types[1].type %></a></li>
+        </ul>
+        <button type="button" onclick="document.getElementById('editTypes').showModal()">Edit campaign types</button>
+        <dialog id="editTypes">
+            <h4>Reassign campaign types</h4>
+            <form action="/updateCampaignTypes/<%= campaignId %>/<%= types[0].type_of_client_id %>/<%= types[1].type_of_client_id %>" method="POST">
+                <% if (types[0].type == "Corporate") { %>
+                    <label for="Corporate">Corporate</label>
+                    <input type="radio" id="Corporate" name="CorporateOrCharity" value="1" checked="checked">
+                    <label for="Charity">Charity</label>
+                    <input type="radio" id="Charity" name="CorporateOrCharity" value="2" >
+                <% } else { %>
+                    <label for="Corporate">Corporate</label>
+                    <input type="radio" id="Corporate" name="CorporateOrCharity" value="1">
+                    <label for="Charity">Charity</label>
+                    <input type="radio" id="Charity" name="CorporateOrCharity" value="2" checked="checked">
+                <% } %>
+                <select name="type" id="types">
+                    <% for (const type of allTypes) { %>
+                        <% if (type.id > 2) { %>
+                            <% if (type.type == types[1].type) { %>
+                                <option value="<%= type.id %>" selected="selected"><%= type.type %></option>
+                            <% } else { %>
+                                <option value="<%= type.id %>"><%= type.type %></option>
+                            <% } %>
                         <% } %>
                     <% } %>
-                <% } %>
-            </select>
-            <button type="submit" onclick="document.getElementById('editTypes').close()">Assign</button>
-            <button type="button" onclick="document.getElementById('editTypes').close()">Close</button>
-        </form>
-    </dialog>
+                </select>
+                <button type="submit" onclick="document.getElementById('editTypes').close()">Assign</button>
+                <button type="button" onclick="document.getElementById('editTypes').close()">Close</button>
+            </form>
+        </dialog>
+    </div>
 </body>
 </html>
