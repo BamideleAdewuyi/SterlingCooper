@@ -137,7 +137,7 @@ async function removeExecutiveFromCampaignPost(req, res) {
     const campaignId = req.params.campaignId;
     const executiveId = req.params.executiveId;
     await db.postRemoveExecutiveFromCampaign({ executiveId, campaignId });
-    await executiveDetailsGet(req, res);
+    res.redirect(`/executiveDetails/${executiveId}`)
 }
 
 async function removeCampaignFromExecutivePost(req, res) {
