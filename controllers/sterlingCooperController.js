@@ -137,14 +137,14 @@ async function removeExecutiveFromCampaignPost(req, res) {
     const campaignId = req.params.campaignId;
     const executiveId = req.params.executiveId;
     await db.postRemoveExecutiveFromCampaign({ executiveId, campaignId });
-    res.redirect(`/executiveDetails/${executiveId}`)
+    res.redirect(`/executiveDetails/${executiveId}`);
 }
 
 async function removeCampaignFromExecutivePost(req, res) {
     const campaignId = req.params.campaignId;
     const executiveId = req.params.executiveId;
     await db.postRemoveExecutiveFromCampaign({ executiveId, campaignId });
-    res.redirect(`/campaignDetails/${campaignId}`)
+    res.redirect(`/campaignDetails/${campaignId}`);
 }
 
 async function updateCampaignTypesPost(req, res) {
@@ -154,8 +154,7 @@ async function updateCampaignTypesPost(req, res) {
     const newCorporateOrCharity = req.body.CorporateOrCharity;
     const newTypeId = req.body.type;
     await db.postUpdateCampaignTypes({ campaignId, oldCorporateOrCharity, oldTypeId, newCorporateOrCharity, newTypeId });
-
-    res.redirect(`/campaignDetails/${campaignId}`)
+    res.redirect(`/campaignDetails/${campaignId}`);
 }
 
 async function campaignsByTypeGet(req, res) {
