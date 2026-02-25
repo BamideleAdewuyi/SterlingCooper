@@ -54,14 +54,30 @@ async function allCampaignsGet(req, res) {
     });
 }
 
-async function newCampaignPost(req, res) {
-    const { brand } = req.body;
-    const campaignId = await db.postNewCampaign({ brand });
-    const corporateOrCharity = req.body.CorporateOrCharity;
-    const typeId = req.body.type;
-    await db.postAssignNewCampaignToTypes({ campaignId, corporateOrCharity, typeId })
-    res.redirect("campaigns");
-}
+const newCampaignPost = [
+    validateUser,
+    async (req, res) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            const campaigns = await db.getAllCampaigns();
+            const executives = await db.getAllExecutives();
+            const types = await db.getAllCampaignTypes();
+            return res.status(400).render("campaigns", {
+                    title: "All Campaigns",
+                    campaigns: campaigns,
+                    executives: executives,
+                    types: types,
+                    errors: errors.array(),
+                });
+            }
+            const  { brand, CorporateOrCharity} = matchedData(req);
+            const corporateOrCharity = matchedData(req).CorporateOrCharity;
+            const campaignId = await db.postNewCampaign({ brand });
+            const typeId = req.body.type;
+            await db.postAssignNewCampaignToTypes({ campaignId, corporateOrCharity, typeId })
+            res.redirect("campaigns");
+        }
+]
 
 async function deleteCampaign(req, res) {
     const id = req.params.id;
