@@ -2,23 +2,29 @@ const { validationResult, matchedData } = require("express-validator");
 const db = require("../db/queries");
 const validateUser = require("../validators/userValidator");
 
+function asyncHandler(fn) {
+  return function (req, res, next) {
+    Promise.resolve(fn(req, res, next)).catch(next);
+  };
+}
+
 function homeGet(req, res) {
     res.render("index");
 }
 
-async function allExecutivesGet(req, res) {
+const allExecutivesGet = asyncHandler(async (req, res) => {
   const executives = await db.getAllExecutives();
   const campaigns = await db.getAllCampaigns();
   res.render("executives", {
-        title: "All Executives",
-        executives: executives,
-        campaigns: campaigns,
+    title: "All Executives",
+    executives,
+    campaigns,
   });
-}
+});
 
 const newExecutivePost = [
     validateUser,
-    async (req, res) => {
+    asyncHandler(async (req, res) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
             const executives = await db.getAllExecutives();
@@ -32,17 +38,17 @@ const newExecutivePost = [
         }
         const { firstName, lastName } = matchedData(req);
         await db.postNewExecutive({ firstName, lastName });
-        res.redirect("executives");
-    }
+        res.redirect("/executives");
+    })
 ]
 
-async function deleteExecutive(req, res) {
+const deleteExecutive = asyncHandler(async (req, res) => {
     const id = req.params.id;
     await db.deleteExecutive(id);
     res.redirect("/executives");
-}
+})
 
-async function allCampaignsGet(req, res) {
+const allCampaignsGet = asyncHandler(async (req, res) => {
     const campaigns = await db.getAllCampaigns();
     const executives = await db.getAllExecutives();
     const types = await db.getAllCampaignTypes();
@@ -52,11 +58,11 @@ async function allCampaignsGet(req, res) {
         executives: executives,
         types: types,
     });
-}
+})
 
 const newCampaignPost = [
     validateUser,
-    async (req, res) => {
+    asyncHandler(async (req, res) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
             const campaigns = await db.getAllCampaigns();
@@ -70,42 +76,43 @@ const newCampaignPost = [
                     errors: errors.array(),
                 });
             }
-            const  { brand, CorporateOrCharity} = matchedData(req);
-            const corporateOrCharity = matchedData(req).CorporateOrCharity;
+            const  { brand, CorporateOrCharity: corporateOrCharity } = matchedData(req);
             const campaignId = await db.postNewCampaign({ brand });
             const typeId = req.body.type;
             await db.postAssignNewCampaignToTypes({ campaignId, corporateOrCharity, typeId })
-            res.redirect("campaigns");
-        }
+            res.redirect("/campaigns");
+    })
 ]
 
-async function deleteCampaign(req, res) {
+const deleteCampaign = asyncHandler(async (req, res) => {
     const id = req.params.id;
     await db.deleteCampaign(id);
     res.redirect("/campaigns");
-}
+})
 
-async function allTypesGet(req, res) {
+const allTypesGet = asyncHandler(async (req, res) => {
     const types = await db.getAllTypesOfClient();
     res.render("types", {
         title: "The kind of work we do",
         types: types,
     });
-}
+})
 
-async function postAssignToCampaign(req, res) {
+const postAssignToCampaign = asyncHandler(async (req, res) => {
     const executiveId = req.params.executiveId;
     const campaignId = req.body.campaignId;
-    db.assignToCampaignPost({executiveId, campaignId});
-}
+    await db.assignToCampaignPost({executiveId, campaignId});
+    res.redirect("/executives");
+})
 
-async function postAssignToExecutive(req, res) {
+const postAssignToExecutive = asyncHandler(async (req, res) => {
     const campaignId = req.params.campaignId;
     const executiveId = req.body.executiveId;
-    db.assignToExecutivePost({campaignId, executiveId});
-}
+    await db.assignToExecutivePost({campaignId, executiveId});
+    res.redirect("/campaigns");
+})
 
-async function executiveDetailsGet(req, res) {
+const executiveDetailsGet = asyncHandler(async (req, res) => {
     const id = req.params.executiveId;
     const executiveName = await db.getExecutiveById(id);
     const campaigns = await db.getExecutiveDetails(id);
@@ -115,39 +122,38 @@ async function executiveDetailsGet(req, res) {
         firstName: executiveName[0].first_name,
         lastName: executiveName[0].last_name,
     });
-}
+})
 
-async function campaignDetailsGet (req, res) {
-    const id = req.params.campaignId;
-    const campaignId = id;
-    const campaignName = await db.getCampaignById(id);
-    const executives = await db.getCampaignDetails(id);
+const campaignDetailsGet = asyncHandler(async (req, res) => {
+    const campaignId = req.params.campaignId;
+    const campaignName = await db.getCampaignById(campaignId);
+    const executives = await db.getCampaignDetails(campaignId);
     const types = await db.getCampaignTypes({ campaignId });
     const allTypes = await db.getAllTypesOfClient();
     res.render("campaignDetails", {
-        campaignId: id,
+        campaignId: campaignId,
         executives: executives,
         brand: campaignName[0].brand,
         types: types,
         allTypes: allTypes,
     });
-}
+})
 
-async function removeExecutiveFromCampaignPost(req, res) {
+const removeExecutiveFromCampaignPost = asyncHandler(async (req, res) => {
     const campaignId = req.params.campaignId;
     const executiveId = req.params.executiveId;
     await db.postRemoveExecutiveFromCampaign({ executiveId, campaignId });
     res.redirect(`/executiveDetails/${executiveId}`);
-}
+})
 
-async function removeCampaignFromExecutivePost(req, res) {
+const removeCampaignFromExecutivePost = asyncHandler(async (req, res) => {
     const campaignId = req.params.campaignId;
     const executiveId = req.params.executiveId;
     await db.postRemoveExecutiveFromCampaign({ executiveId, campaignId });
     res.redirect(`/campaignDetails/${campaignId}`);
-}
+})
 
-async function updateCampaignTypesPost(req, res) {
+const updateCampaignTypesPost = asyncHandler(async (req, res) => {
     const campaignId = req.params.campaignId;
     const oldCorporateOrCharity = req.params.oldCorporateOrCharity;
     const oldTypeId = req.params.oldTypeId;
@@ -155,9 +161,9 @@ async function updateCampaignTypesPost(req, res) {
     const newTypeId = req.body.type;
     await db.postUpdateCampaignTypes({ campaignId, oldCorporateOrCharity, oldTypeId, newCorporateOrCharity, newTypeId });
     res.redirect(`/campaignDetails/${campaignId}`);
-}
+})
 
-async function campaignsByTypeGet(req, res) {
+const campaignsByTypeGet = asyncHandler(async (req, res) => {
     const typeId = req.params.typeId;
     const campaigns = await db.getCampaignsByType({typeId});
     const type = await db.getTypeById({ typeId });
@@ -165,7 +171,7 @@ async function campaignsByTypeGet(req, res) {
         title: `${type} Campaigns`,
         campaigns: campaigns,
     });
-}
+})
 
 module.exports = {
     homeGet,
