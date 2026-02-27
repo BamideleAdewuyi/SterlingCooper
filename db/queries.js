@@ -53,12 +53,8 @@ async function findAllTypesOfClient() {
     return rows;
 }
 
-async function assignToCampaign({executiveId, campaignId}) {
+async function assignExecutiveToCampaign({executiveId, campaignId}) {
     await pool.query("INSERT INTO assignment (executive_id, campaign_id) VALUES ($1, $2) ON CONFLICT DO NOTHING", [executiveId, campaignId]);
-}
-
-async function assignToExecutive({campaignId, executiveId}) {
-    await pool.query("INSERT INTO assignment (campaign_id, executive_id) VALUES ($1, $2) ON CONFLICT DO NOTHING", [campaignId, executiveId]);
 }
 
 async function findExecutiveDetails(id) {
@@ -108,8 +104,7 @@ module.exports = {
     deleteCampaign,
     assignNewCampaignToTypes,
     findAllTypesOfClient,
-    assignToCampaign,
-    assignToExecutive,
+    assignExecutiveToCampaign,
     findExecutiveDetails,
     findCampaignDetails,
     removeExecutiveFromCampaign,
