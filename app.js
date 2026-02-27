@@ -9,6 +9,10 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static('assets'));
 app.use("/", sterlingCooperRouter);
 
+app.use((err, req, res, next) => {
+  console.error(err);
+  res.status(500).send("Internal Server Error");
+});
 
 const PORT = process.env.PORT || 3001;
 
