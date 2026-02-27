@@ -13,8 +13,8 @@ function homeGet(req, res) {
 }
 
 const allExecutivesGet = asyncHandler(async (req, res) => {
-  const executives = await db.getAllExecutives();
-  const campaigns = await db.getAllCampaigns();
+  const executives = await db.findAllExecutives();
+  const campaigns = await db.findAllCampaigns();
   res.render("executives", {
     title: "All Executives",
     executives,
@@ -27,8 +27,8 @@ const newExecutivePost = [
     asyncHandler(async (req, res) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
-            const executives = await db.getAllExecutives();
-            const campaigns = await db.getAllCampaigns();
+            const executives = await db.findAllExecutives();
+            const campaigns = await db.findAllCampaigns();
             return res.status(400).render("executives", {
                 title: "All Executives",
                 executives: executives,
@@ -37,7 +37,7 @@ const newExecutivePost = [
             });
         }
         const { firstName, lastName } = matchedData(req);
-        await db.postNewExecutive({ firstName, lastName });
+        await db.createNewExecutive({ firstName, lastName });
         res.redirect("/executives");
     })
 ]
@@ -49,9 +49,9 @@ const deleteExecutive = asyncHandler(async (req, res) => {
 })
 
 const allCampaignsGet = asyncHandler(async (req, res) => {
-    const campaigns = await db.getAllCampaigns();
-    const executives = await db.getAllExecutives();
-    const types = await db.getAllCampaignTypes();
+    const campaigns = await db.findAllCampaigns();
+    const executives = await db.findAllExecutives();
+    const types = await db.findAllCampaignTypes();
     res.render("campaigns", {
         title: "All Campaigns",
         campaigns: campaigns,
@@ -65,9 +65,9 @@ const newCampaignPost = [
     asyncHandler(async (req, res) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
-            const campaigns = await db.getAllCampaigns();
-            const executives = await db.getAllExecutives();
-            const types = await db.getAllCampaignTypes();
+            const campaigns = await db.findAllCampaigns();
+            const executives = await db.findAllExecutives();
+            const types = await db.findAllCampaignTypes();
             return res.status(400).render("campaigns", {
                     title: "All Campaigns",
                     campaigns: campaigns,
@@ -77,9 +77,9 @@ const newCampaignPost = [
                 });
             }
             const  { brand, CorporateOrCharity: corporateOrCharity } = matchedData(req);
-            const campaignId = await db.postNewCampaign({ brand });
+            const campaignId = await db.createNewCampaign({ brand });
             const typeId = req.body.type;
-            await db.postAssignNewCampaignToTypes({ campaignId, corporateOrCharity, typeId })
+            await db.assignNewCampaignToTypes({ campaignId, corporateOrCharity, typeId })
             res.redirect("/campaigns");
     })
 ]
@@ -91,7 +91,7 @@ const deleteCampaign = asyncHandler(async (req, res) => {
 })
 
 const allTypesGet = asyncHandler(async (req, res) => {
-    const types = await db.getAllTypesOfClient();
+    const types = await db.findAllTypesOfClient();
     res.render("types", {
         title: "The kind of work we do",
         types: types,
@@ -101,21 +101,21 @@ const allTypesGet = asyncHandler(async (req, res) => {
 const postAssignToCampaign = asyncHandler(async (req, res) => {
     const executiveId = req.params.executiveId;
     const campaignId = req.body.campaignId;
-    await db.assignToCampaignPost({executiveId, campaignId});
+    await db.assignToCampaign({executiveId, campaignId});
     res.redirect("/executives");
 })
 
 const postAssignToExecutive = asyncHandler(async (req, res) => {
     const campaignId = req.params.campaignId;
     const executiveId = req.body.executiveId;
-    await db.assignToExecutivePost({campaignId, executiveId});
+    await db.assignToExecutive({campaignId, executiveId});
     res.redirect("/campaigns");
 })
 
 const executiveDetailsGet = asyncHandler(async (req, res) => {
     const id = req.params.executiveId;
-    const executiveName = await db.getExecutiveById(id);
-    const campaigns = await db.getExecutiveDetails(id);
+    const executiveName = await db.findExecutiveById(id);
+    const campaigns = await db.findExecutiveDetails(id);
     res.render("executiveDetails", {
         executiveId: id,
         campaigns: campaigns,
@@ -126,10 +126,10 @@ const executiveDetailsGet = asyncHandler(async (req, res) => {
 
 const campaignDetailsGet = asyncHandler(async (req, res) => {
     const campaignId = req.params.campaignId;
-    const campaignName = await db.getCampaignById(campaignId);
-    const executives = await db.getCampaignDetails(campaignId);
-    const types = await db.getCampaignTypes({ campaignId });
-    const allTypes = await db.getAllTypesOfClient();
+    const campaignName = await db.findCampaignById(campaignId);
+    const executives = await db.findCampaignDetails(campaignId);
+    const types = await db.findCampaignTypes({ campaignId });
+    const allTypes = await db.findAllTypesOfClient();
     res.render("campaignDetails", {
         campaignId: campaignId,
         executives: executives,
@@ -142,14 +142,14 @@ const campaignDetailsGet = asyncHandler(async (req, res) => {
 const removeExecutiveFromCampaignPost = asyncHandler(async (req, res) => {
     const campaignId = req.params.campaignId;
     const executiveId = req.params.executiveId;
-    await db.postRemoveExecutiveFromCampaign({ executiveId, campaignId });
+    await db.removeExecutiveFromCampaign({ executiveId, campaignId });
     res.redirect(`/executiveDetails/${executiveId}`);
 })
 
 const removeCampaignFromExecutivePost = asyncHandler(async (req, res) => {
     const campaignId = req.params.campaignId;
     const executiveId = req.params.executiveId;
-    await db.postRemoveExecutiveFromCampaign({ executiveId, campaignId });
+    await db.removeExecutiveFromCampaign({ executiveId, campaignId });
     res.redirect(`/campaignDetails/${campaignId}`);
 })
 
@@ -159,14 +159,14 @@ const updateCampaignTypesPost = asyncHandler(async (req, res) => {
     const oldTypeId = req.params.oldTypeId;
     const newCorporateOrCharity = req.body.CorporateOrCharity;
     const newTypeId = req.body.type;
-    await db.postUpdateCampaignTypes({ campaignId, oldCorporateOrCharity, oldTypeId, newCorporateOrCharity, newTypeId });
+    await db.updateCampaignTypes({ campaignId, oldCorporateOrCharity, oldTypeId, newCorporateOrCharity, newTypeId });
     res.redirect(`/campaignDetails/${campaignId}`);
 })
 
 const campaignsByTypeGet = asyncHandler(async (req, res) => {
     const typeId = req.params.typeId;
-    const campaigns = await db.getCampaignsByType({typeId});
-    const type = await db.getTypeById({ typeId });
+    const campaigns = await db.findCampaignsByType({typeId});
+    const type = await db.findTypeById({ typeId });
     res.render("typeDetails", {
         title: `${type} Campaigns`,
         campaigns: campaigns,
