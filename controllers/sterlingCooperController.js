@@ -101,14 +101,14 @@ const allTypesGet = asyncHandler(async (req, res) => {
 const postAssignToCampaign = asyncHandler(async (req, res) => {
     const executiveId = req.params.executiveId;
     const campaignId = req.body.campaignId;
-    await db.assignToCampaign({executiveId, campaignId});
+    await db.assignExecutiveToCampaign({executiveId, campaignId});
     res.redirect("/executives");
 })
 
 const postAssignToExecutive = asyncHandler(async (req, res) => {
     const campaignId = req.params.campaignId;
     const executiveId = req.body.executiveId;
-    await db.assignToExecutive({campaignId, executiveId});
+    await db.assignExecutiveToCampaign({executiveId, campaignId});
     res.redirect("/campaigns");
 })
 
